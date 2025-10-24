@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
-import { Loader2, Youtube, Sparkles } from "lucide-react";
+import { Loader2, Youtube, Sparkles, Zap, TrendingUp, CheckCircle2 } from "lucide-react";
 
 // Configure your webhook URL here
 const WEBHOOK_URL = "https://your-n8n-webhook-url";
@@ -76,100 +76,173 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-        {/* Hero Section */}
-        <div className="text-center space-y-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-2">
-            <Youtube className="w-8 h-8 text-primary" />
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Animated Background Mesh */}
+      <div className="absolute inset-0 bg-gradient-mesh opacity-60"></div>
+      
+      {/* Floating Orbs */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/30 rounded-full filter blur-[120px] animate-float"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full filter blur-[120px] animate-float" style={{ animationDelay: "2s" }}></div>
+      
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            
+            {/* Left Side - Hero Content */}
+            <div className="space-y-8 text-center lg:text-left animate-in fade-in slide-in-from-left duration-700">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
+                <Sparkles className="w-4 h-4 text-primary animate-glow" />
+                <span className="text-sm font-medium text-foreground">AI-Powered Optimization</span>
+              </div>
+              
+              {/* Heading */}
+              <div className="space-y-4">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold tracking-tight">
+                  <span className="bg-gradient-primary bg-clip-text text-transparent">
+                    Boost Your
+                  </span>
+                  <br />
+                  <span className="text-foreground">YouTube Titles</span>
+                </h1>
+                <p className="text-xl text-muted-foreground max-w-lg mx-auto lg:mx-0">
+                  Get AI-powered suggestions that increase views, engagement, and channel growth
+                </p>
+              </div>
+
+              {/* Features */}
+              <div className="grid sm:grid-cols-3 gap-6 pt-4">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <TrendingUp className="w-5 h-5 text-primary" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground">More Views</h3>
+                    <p className="text-sm text-muted-foreground">Optimized for clicks</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <div className="p-2 rounded-lg bg-accent/10">
+                      <Zap className="w-5 h-5 text-accent" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground">AI-Powered</h3>
+                    <p className="text-sm text-muted-foreground">Smart algorithms</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center lg:justify-start">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground">Proven Results</h3>
+                    <p className="text-sm text-muted-foreground">Data-driven</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Form Card */}
+            <div className="animate-in fade-in slide-in-from-right duration-700">
+              <Card className="border-border/50 bg-card/80 backdrop-blur-xl shadow-card hover:shadow-hover transition-all duration-500">
+                <CardHeader className="space-y-3 pb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 rounded-xl bg-gradient-primary">
+                      <Youtube className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl font-display">Get Started</CardTitle>
+                      <CardDescription className="text-muted-foreground">
+                        Start optimizing your titles today
+                      </CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                <CardContent>
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    {/* Channel Name Input */}
+                    <div className="space-y-2">
+                      <Label htmlFor="channelName" className="text-sm font-medium text-foreground">
+                        Channel Name
+                      </Label>
+                      <Input
+                        id="channelName"
+                        placeholder="e.g., Tech Tutorials"
+                        {...register("channelName")}
+                        className={`h-12 bg-background/50 border-border/50 focus:border-primary transition-all duration-300 ${
+                          errors.channelName ? "border-destructive focus-visible:ring-destructive" : ""
+                        }`}
+                        disabled={isSubmitting}
+                      />
+                      {errors.channelName && (
+                        <p className="text-sm text-destructive flex items-center gap-1 animate-in fade-in slide-in-from-top-1">
+                          {errors.channelName.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Email Input */}
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-sm font-medium text-foreground">
+                        Email Address
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        {...register("email")}
+                        className={`h-12 bg-background/50 border-border/50 focus:border-primary transition-all duration-300 ${
+                          errors.email ? "border-destructive focus-visible:ring-destructive" : ""
+                        }`}
+                        disabled={isSubmitting}
+                      />
+                      {errors.email && (
+                        <p className="text-sm text-destructive flex items-center gap-1 animate-in fade-in slide-in-from-top-1">
+                          {errors.email.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Submit Button */}
+                    <Button
+                      type="submit"
+                      className="w-full h-12 text-base font-semibold bg-gradient-primary hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-glow relative overflow-hidden group"
+                      disabled={isSubmitting}
+                    >
+                      <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="mr-2 h-5 w-5" />
+                          Boost My Titles
+                        </>
+                      )}
+                    </Button>
+
+                    {/* Trust Badge */}
+                    <div className="flex items-center justify-center gap-2 pt-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="w-4 h-4 text-primary" />
+                      <span>Free analysis • No credit card required</span>
+                    </div>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            YouTube Title Booster
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-sm mx-auto">
-            Optimize your video titles and grow your channel with AI-powered suggestions
-          </p>
         </div>
-
-        {/* Form Card */}
-        <Card className="border-border/50 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)] transition-shadow duration-300">
-          <CardHeader className="space-y-1 pb-6">
-            <CardTitle className="text-2xl flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-primary" />
-              Get Started
-            </CardTitle>
-            <CardDescription>
-              Enter your details to boost your YouTube titles
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {/* Channel Name Input */}
-              <div className="space-y-2">
-                <Label htmlFor="channelName" className="text-sm font-medium">
-                  Channel Name
-                </Label>
-                <Input
-                  id="channelName"
-                  placeholder="e.g., Tech Tutorials"
-                  {...register("channelName")}
-                  className={`transition-colors ${
-                    errors.channelName ? "border-destructive focus-visible:ring-destructive" : ""
-                  }`}
-                  disabled={isSubmitting}
-                />
-                {errors.channelName && (
-                  <p className="text-sm text-destructive animate-in fade-in slide-in-from-top-1">
-                    {errors.channelName.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Email Input */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">
-                  Email Address
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  {...register("email")}
-                  className={`transition-colors ${
-                    errors.email ? "border-destructive focus-visible:ring-destructive" : ""
-                  }`}
-                  disabled={isSubmitting}
-                />
-                {errors.email && (
-                  <p className="text-sm text-destructive animate-in fade-in slide-in-from-top-1">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                className="w-full h-11 text-base font-medium"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Submitting...
-                  </>
-                ) : (
-                  "Boost My Titles"
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-
-        {/* Footer Note */}
-        <p className="text-center text-sm text-muted-foreground">
-          By submitting, you agree to receive title optimization suggestions via email.
-        </p>
       </div>
     </div>
   );
