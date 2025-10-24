@@ -10,7 +10,7 @@ import { toast } from "@/hooks/use-toast";
 import { Loader2, Youtube, Sparkles, Zap, TrendingUp, CheckCircle2 } from "lucide-react";
 
 // Configure your webhook URL here
-const WEBHOOK_URL = "https://your-n8n-webhook-url";
+const WEBHOOK_URL = "https://randomhecker212heckkrluga.app.n8n.cloud/webhook/cf9ca781-aacc-4ecf-ba0e-d4345b32fffb";
 
 const formSchema = z.object({
   channelName: z
